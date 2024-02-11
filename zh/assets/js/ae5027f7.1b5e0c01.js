@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocusaurus=self.webpackChunkdocusaurus||[]).push([[876],{6776:e=>{e.exports=JSON.parse('{"title":"Backup","slug":"/category/backup","permalink":"/zh/category/backup","navigation":{"previous":{"title":"Guides","permalink":"/zh/category/guides"},"next":{"title":"Creating a backup","permalink":"/zh/guides/backup/creating-backup"}}}')}}]);

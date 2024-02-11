@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocusaurus=self.webpackChunkdocusaurus||[]).push([[848],{6020:e=>{e.exports=JSON.parse('{"title":"Advanced","slug":"/category/advanced","permalink":"/zh/category/advanced","navigation":{"previous":{"title":"Automatic Updates","permalink":"/zh/guides/automatic-updates"},"next":{"title":"Kubernetes","permalink":"/zh/advanced/kubernetes"}}}')}}]);
