@@ -17,16 +17,7 @@ RUN wget -q https://github.com/gorcon/rcon-cli/archive/refs/tags/v${RCON_VERSION
     && rm -rf rcon-cli-${RCON_VERSION} \
     && go build -v ./cmd/gorcon
 
-FROM cm2network/steamcmd:root as base-amd64
-# Ignoring --platform=arm64 as this is required for the multi-arch build to continue to work on amd64 hosts
-# hadolint ignore=DL3029
-FROM --platform=arm64 sonroyaalmerol/steamcmd-arm64:root-2024-07-08 as base-arm64
-
-ARG TARGETARCH
-# Ignoring the lack of a tag here because the tag is defined in the above FROM lines
-# and hadolint isn't aware of those.
-# hadolint ignore=DL3006
-FROM base-${TARGETARCH}
+FROM sonroyaalmerol/steam-depot-downloader:bookworm
 
 LABEL maintainer="thijs@loef.dev" \
       name="thijsvanloef/palworld-server-docker" \
@@ -74,16 +65,6 @@ RUN case "${TARGETARCH}" in \
     && echo "${SUPERCRONIC_SHA1SUM}" supercronic | sha1sum -c - \
     && chmod +x supercronic \
     && mv supercronic /usr/local/bin/supercronic
-
-RUN case "${TARGETARCH}" in \
-        "amd64") DEPOT_DOWNLOADER_FILENAME=DepotDownloader-linux-x64.zip ;; \
-        "arm64") DEPOT_DOWNLOADER_FILENAME=DepotDownloader-linux-arm64.zip ;; \
-    esac \
-    && wget --progress=dot:giga "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_${DEPOT_DOWNLOADER_VERSION}/${DEPOT_DOWNLOADER_FILENAME}" -O DepotDownloader.zip \
-    && unzip DepotDownloader.zip \
-    && rm -rf DepotDownloader.xml \
-    && chmod +x DepotDownloader \
-    && mv DepotDownloader /usr/local/bin/DepotDownloader
 
 # hadolint ignore=DL3044
 ENV HOME=/home/steam \
