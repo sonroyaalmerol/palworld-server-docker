@@ -17,7 +17,7 @@ RUN wget -q https://github.com/gorcon/rcon-cli/archive/refs/tags/v${RCON_VERSION
     && rm -rf rcon-cli-${RCON_VERSION} \
     && go build -v ./cmd/gorcon
 
-FROM sonroyaalmerol/steam-depot-downloader:bookworm
+FROM sonroyaalmerol/steam-depot-downloader:debian-bookworm
 
 LABEL maintainer="thijs@loef.dev" \
       name="thijsvanloef/palworld-server-docker" \
@@ -25,6 +25,10 @@ LABEL maintainer="thijs@loef.dev" \
       dockerhub="https://hub.docker.com/r/thijsvanloef/palworld-server-docker" \
       org.opencontainers.image.authors="Thijs van Loef" \
       org.opencontainers.image.source="https://github.com/thijsvanloef/palworld-server-docker"
+
+ENV USER steam
+
+ENV DEBIAN_FRONTEND noninteractive
 
 # set envs
 # SUPERCRONIC: Latest releases available at https://github.com/aptible/supercronic/releases
@@ -156,6 +160,8 @@ ENV BOX64_DYNAREC_STRONGMEM=1 \
 
 # Passed from Github Actions
 ARG GIT_VERSION_TAG=unspecified
+
+RUN useradd -l -u "${PUID}" -m "${USER}"
 
 COPY ./scripts /home/steam/server/
 
