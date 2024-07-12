@@ -57,6 +57,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     netcat-traditional=1.10-47 \
     libicu72=72.1-3 \
     unzip=6.0-28 \
+    gosu=1.14-1+b10 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
